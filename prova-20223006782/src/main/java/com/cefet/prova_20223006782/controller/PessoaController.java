@@ -6,6 +6,7 @@ import com.cefet.prova_20223006782.service.PessoaService;
 import com.cefet.prova_20223006782.service.CarroService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +17,16 @@ import java.util.List;
 public class PessoaController {
 
     @Autowired
-    private PessoaService pessoaService;  
+    private PessoaService pessoaService;
+    
+    @Autowired
+    private CarroService carroService;
 
     @GetMapping
     public ResponseEntity<List<PessoaDTO>> findAll() {
         List<PessoaDTO> pessoaDTOs = pessoaService.findAll();
         return ResponseEntity.ok(pessoaDTOs);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<PessoaDTO> findById(@PathVariable Long id) {
@@ -34,7 +37,7 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity<PessoaDTO> create(@RequestBody PessoaDTO pessoaDTO) {
         PessoaDTO novaPessoa = pessoaService.insert(pessoaDTO);
-        return ResponseEntity.status(201).body(novaPessoa);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaPessoa);
     }
 
     @PutMapping("/{id}")
@@ -43,19 +46,15 @@ public class PessoaController {
         return ResponseEntity.ok(pessoaAtualizado);
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         pessoaService.delete(id);
         return ResponseEntity.noContent().build(); 
     }
 
-    @GetMapping("/cpf/{cpf}/carros")
-    public ResponseEntity<List<CarroDTO>> listarCarrosPorCpf(@PathVariable String cpf) {
-        if (cpf == null || cpf.length() != 11 || !cpf.matches("\\d+")) {
-            throw new IllegalArgumentException("CPF inválido. Deve conter 11 dígitos numéricos.");
-        }
-        List<CarroDTO> carros = pessoaService.findCarrosByPessoaCpf(cpf);
+    @GetMapping("/{id}/carros")
+    public ResponseEntity<List<CarroDTO>> listarCarrosPorPessoa(@PathVariable Long id) {
+        List<CarroDTO> carros = carroService.findByPessoaId(id);
         return ResponseEntity.ok(carros);
     }
 }

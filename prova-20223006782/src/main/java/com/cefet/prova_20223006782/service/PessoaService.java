@@ -66,15 +66,4 @@ public class PessoaService {
         System.out.println("Pessoa deletada com sucesso"); 
     }
 
-    // buscar e listar carros de uma pessoa pelo ID
-    public List<CarroDTO> findCarrosByPessoaCpf(String cpf) {
-        Pessoa pessoa = pessoaRepository.findByCpf(cpf)
-            .orElseThrow(() -> new EntityNotFoundException("Nenhuma pessoa encontrada com CPF: " + cpf));
-        
-        List<Carro> carros = carroRepository.findByPessoaId(pessoa.getId());
-        if (carros.isEmpty()) {
-            throw new EntityNotFoundException("Nenhum carro encontrado para o CPF: " + cpf);
-        }
-        return carros.stream().map(CarroDTO::new).toList();
-    }
 }

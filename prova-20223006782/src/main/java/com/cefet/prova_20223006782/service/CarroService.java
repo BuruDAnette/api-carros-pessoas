@@ -35,6 +35,11 @@ public class CarroService {
         return new CarroDTO(carro);
     }
 
+    public List<CarroDTO> findByPessoaId(Long pessoaId) {
+        List<Carro> carros = carroRepository.findByPessoaId(pessoaId);
+        return carros.stream().map(CarroDTO::new).toList();
+    }
+
     //cadastrar novo carro
     public CarroDTO insert(CarroDTO carroDTO) {
         System.out.println("DTO recebido: " + carroDTO); // Log simples
