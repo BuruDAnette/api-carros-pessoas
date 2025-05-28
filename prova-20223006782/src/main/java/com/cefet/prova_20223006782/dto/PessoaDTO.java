@@ -1,6 +1,7 @@
 package com.cefet.prova_20223006782.dto;
 
-import com.cefet.prova_20223006782.model.Pessoa;
+import com.cefet.prova_20223006782.entity.Pessoa;
+
 import lombok.*;
 
 @Data

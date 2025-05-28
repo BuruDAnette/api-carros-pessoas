@@ -1,4 +1,4 @@
-package com.cefet.prova_20223006782.model;
+package com.cefet.prova_20223006782.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

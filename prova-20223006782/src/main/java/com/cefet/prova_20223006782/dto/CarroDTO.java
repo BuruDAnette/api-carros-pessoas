@@ -1,6 +1,7 @@
 package com.cefet.prova_20223006782.dto;
 
-import com.cefet.prova_20223006782.model.Carro;
+import com.cefet.prova_20223006782.entity.Carro;
+
 import lombok.*;
 
 @Data
@@ -12,6 +13,7 @@ public class CarroDTO {
     private String nomePessoa;
     private String cpfPessoa;
     private Long idPessoa;
+    private Double pontuacao;
 
     public CarroDTO(Carro carro) {
         this.id = carro.getId();
@@ -19,5 +21,6 @@ public class CarroDTO {
         this.nomePessoa = carro.getPessoa().getNome();
         this.cpfPessoa = carro.getPessoa().getCpf();
         this.idPessoa = carro.getPessoa().getId();
+        this.pontuacao = carro.getPontuacao();
     }
 }

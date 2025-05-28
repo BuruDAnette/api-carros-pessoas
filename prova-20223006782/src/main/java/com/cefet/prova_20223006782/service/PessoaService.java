@@ -1,11 +1,8 @@
 package com.cefet.prova_20223006782.service;
 
 import com.cefet.prova_20223006782.dto.PessoaDTO;
-import com.cefet.prova_20223006782.dto.CarroDTO;
-import com.cefet.prova_20223006782.model.Pessoa;
-import com.cefet.prova_20223006782.model.Carro;
+import com.cefet.prova_20223006782.entity.Pessoa;
 import com.cefet.prova_20223006782.repository.PessoaRepository;
-import com.cefet.prova_20223006782.repository.CarroRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +17,6 @@ public class PessoaService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
-
-    @Autowired
-    private CarroRepository carroRepository;
 
     // buscar pessoa
     public List<PessoaDTO> findAll(){
@@ -46,7 +40,7 @@ public class PessoaService {
         return new PessoaDTO(pessoaSalvo);
     }
 
-    // atualizar Dados de Pessoa
+    // atualizar Dados
     public PessoaDTO update(Long id, PessoaDTO pessoaDTO) {
         Pessoa pessoa = pessoaRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrado com ID: " + id));
@@ -56,7 +50,7 @@ public class PessoaService {
         return new PessoaDTO(pessoaAtualizado);
     }
 
-    // remove Pessoa pelo seu id
+    // remove Pessoa
     public void delete(Long id) {
         System.out.println("Tentando deletar pessoa com ID: " + id); // Log adicional
         if (!pessoaRepository.existsById(id)) {

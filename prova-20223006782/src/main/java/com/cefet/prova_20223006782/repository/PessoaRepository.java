@@ -1,7 +1,8 @@
 package com.cefet.prova_20223006782.repository;
 
-import com.cefet.prova_20223006782.model.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cefet.prova_20223006782.entity.Pessoa;
 
 import java.util.Optional;
 
