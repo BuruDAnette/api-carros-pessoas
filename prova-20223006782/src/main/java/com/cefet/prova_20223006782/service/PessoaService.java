@@ -18,20 +18,17 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    // buscar pessoa
     public List<PessoaDTO> findAll(){
         List<Pessoa> listaPessoa = pessoaRepository.findAll();
         return listaPessoa.stream().map(PessoaDTO::new).toList();   
     }
 
-    // buscar por ID
     public PessoaDTO findById(Long id) {
         Pessoa pessoa = pessoaRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrado com ID: " + id));
         return new PessoaDTO(pessoa);
     }
 
-    // inserir Pessoa
     public PessoaDTO insert(PessoaDTO pessoaDTO) {
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(pessoaDTO.getNome());
@@ -40,7 +37,6 @@ public class PessoaService {
         return new PessoaDTO(pessoaSalvo);
     }
 
-    // atualizar Dados
     public PessoaDTO update(Long id, PessoaDTO pessoaDTO) {
         Pessoa pessoa = pessoaRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrado com ID: " + id));
@@ -50,14 +46,12 @@ public class PessoaService {
         return new PessoaDTO(pessoaAtualizado);
     }
 
-    // remove Pessoa
     public void delete(Long id) {
-        System.out.println("Tentando deletar pessoa com ID: " + id); // Log adicional
+        System.out.println("Tentando deletar pessoa com ID: " + id);
         if (!pessoaRepository.existsById(id)) {
             throw new EntityNotFoundException("Pessoa não encontrado com ID: " + id);
         }
         pessoaRepository.deleteById(id);
         System.out.println("Pessoa deletada com sucesso"); 
     }
-
 }

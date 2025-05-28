@@ -21,13 +21,12 @@ public class CarroService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
-    // buscar todos
+
     public List<CarroDTO> findAll(){
         List<Carro> listaCarro = carroRepository.findAll();
         return listaCarro.stream().map(CarroDTO::new).toList();
     }
 
-    // buscar por ID
     public CarroDTO findById(Long id) {
         Carro carro = carroRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Carro não encontrado com ID: " + id));
@@ -38,12 +37,10 @@ public class CarroService {
         List<Carro> carros = carroRepository.findByPessoaId(pessoaId);
         return carros.stream().map(CarroDTO::new).toList();
     }
-
-    // cadastrar novo carro
     
     @Transactional
     public CarroDTO insert(CarroDTO carroDTO) {
-        System.out.println("DTO recebido: " + carroDTO); // Log simples
+        System.out.println("DTO recebido: " + carroDTO);
         if (carroDTO.getPlaca() == null || carroDTO.getPlaca().isEmpty()) {
             throw new IllegalArgumentException("Placa é obrigatória");
         }
@@ -92,7 +89,6 @@ public class CarroService {
         return new CarroDTO(carroAtualizado);
     }
 
-    // deletar carro
     public void delete(Long id) {
         Carro carro = carroRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Carro não encontrado com ID: " + id));
